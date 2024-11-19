@@ -1,49 +1,69 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-typedef struct {
-    char amigo[20];
-    char namigo[20];
-} allFriends;
+struct cel {
+    int conteudo;
+    struct cel *seg;
+};
 
-typedef struct {
-    struct allFriends[1000];
-    char amg[20];
-} cList;
+typedef struct cel celula;
+
+void BuscaERemove (int x, celula **st) {
+    celula *p, *q;
+    p = *st;
+    q = *st;
+    while (q != NULL && q->conteudo != x) {
+        p = q;
+        q = q->seg;
+    }
+    if (q != NULL) {
+        if(q == *st)
+            *st = q->seg;
+        else {
+            p->seg = q->seg;
+        }
+        free (q);
+    }
+}
+
+void Insert(int y, celula **p) {
+    celula *nova;
+    nova = malloc (sizeof (celula));
+    nova->conteudo = y;
+    nova->seg = NULL;
+    if (*p == NULL)
+        *p = nova;
+    else {
+        celula *aux = *p;
+        while(aux->seg != NULL){
+            aux = aux->seg;
+        }
+        aux->seg = nova;
+    }
+}
 
 int main() {
-    char *amigos, *namigos, *amg;
-    gets(amigos);
-    gets(namigos);
-    gets(amg);
-    int i = 0, k = 0;
-    while(amigos[i] != '\0'){
-        if(amigos[i] == ' '){
-            i++;
-            k++;
-            continue;
-        }
-        else{
-            cList.allFriends[k].amigo[i] = amigos[i];
-        }
+    int V1[5000], V2[5000], n, m;
+    scanf("%d", &n);
+    celula *fila = NULL;
+
+    for(int i = 0; i < n; i++){
+        scanf("%d", &V1[i]); 
+        Insert(V1[i], &fila); //Função para inserir elementos
     }
-    int i = 0, k = 0;
-    while(namigos[i] != '\0'){
-        if(namigos[i] == ' '){
-            i++;
-            k++;
-            continue;
-        }
-        else{
-            nList.allFriends[k].namigo[i] = namigos[i];
-        }
+
+    scanf("%d", &m);
+
+    for(int i = 0; i < m; i++){
+        scanf("%d", &V2[i]);
+        BuscaERemove(V2[i], &fila); //Função para buscar elemento específicos e removê-los
     }
-    int i = 0, k = 0;
-    while(amg[i] != '\0'){
-        
-        cList.allFriends[k].amg[i] = amigos[i];
-        nList.allFriends[k].amg[i] = amigos[i];
+
+    celula *aux = fila;
+    while(aux != NULL){
+        printf("%d ", aux->conteudo); //Imprime todos os elementos restantes da fila
+        aux = aux->seg;
     }
- 
+
     return 0;
-} // Incompleto
+}
