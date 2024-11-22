@@ -27,7 +27,8 @@ int BemFormada (char s[]) {
                 }
                 break;
 
-            default: p[t++] = s[i];
+            case '(':
+                p[t++] = s[i];
         }
     }
     free (p);
