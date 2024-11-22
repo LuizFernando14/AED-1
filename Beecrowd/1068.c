@@ -52,12 +52,13 @@ int main(){
     celula header, *p;
     p = &header;
     p->seg = NULL;
-    for(int n = 0; n < 10000; n++){
+    for(int n = 0; n < 10; n++){
         fgets(V, sizeof(V), stdin);
         int len = strlen(V);
         if(V[len-1] == '\n')
             V[len-1] = '\0';
-        Empilha(V, &header);
+        if(len > 1)
+            Empilha(V, &header);
     }
     p = header.seg;
     while(p != NULL){
