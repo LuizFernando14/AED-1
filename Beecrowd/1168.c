@@ -1,64 +1,54 @@
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 #include <stdlib.h>
-const TAM = 10000;
+
+const int TAM = 1000000;
 
 int main() {
-    int N, T, i=0, num, num2;
+    int N, T, i = 0;
     char V[TAM];
     scanf("%d", &N);
-    getchar();
-    while(i < N){
+    getchar();  // To consume the newline character left by scanf
+    
+    while (i < N) {
         fgets(V, TAM, stdin);
-        num = atoi(V);
+        
         T = 0;
-        for(int k = 1; k < strlen(V); k++){
-            num2 = num%10;
-            switch(num2){
-                case 0:
-                T+=6;
-                break;
-
-                case 1:
-                T+=2;
-                break;
-
-                case 2:
-                T+=5;
-                break;
-
-                case 3:
-                T+=5;
-                break;
-
-                case 4:
-                T+=4;
-                break;
-
-                case 5:
-                T+=5;
-                break;
-
-                case 6:
-                T+=6;
-                break;
-
-                case 7:
-                T+=3;
-                break;
-
-                case 8:
-                T+=7;
-                break;
-
-                case 9:
-                T+=6;
-                break;
-
-
+        // Iterate over each character in the string V, stopping at the newline
+        for (int k = 0; k < strlen(V) - 1; k++) {  // -1 to exclude newline character
+            char digit = V[k];
+            switch (digit) {
+                case '0':
+                    T += 6;
+                    break;
+                case '1':
+                    T += 2;
+                    break;
+                case '2':
+                    T += 5;
+                    break;
+                case '3':
+                    T += 5;
+                    break;
+                case '4':
+                    T += 4;
+                    break;
+                case '5':
+                    T += 5;
+                    break;
+                case '6':
+                    T += 6;
+                    break;
+                case '7':
+                    T += 3;
+                    break;
+                case '8':
+                    T += 7;
+                    break;
+                case '9':
+                    T += 6;
+                    break;
             }
-            num /= 10;
         }
         printf("%d leds\n", T);
         i++;
