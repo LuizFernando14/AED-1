@@ -8,14 +8,13 @@ int main() {
     int N, T, i = 0;
     char V[TAM];
     scanf("%d", &N);
-    getchar();  // To consume the newline character left by scanf
+    getchar();
     
     while (i < N) {
         fgets(V, TAM, stdin);
         
         T = 0;
-        // Iterate over each character in the string V, stopping at the newline
-        for (int k = 0; k < strlen(V) - 1; k++) {  // -1 to exclude newline character
+        for (int k = 0; k < strlen(V) - 1; k++) { 
             char digit = V[k];
             switch (digit) {
                 case '0':
