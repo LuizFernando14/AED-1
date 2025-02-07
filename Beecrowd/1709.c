@@ -44,4 +44,4 @@ int main() {
     scanf("%d", &n);
     printf("%d\n", shuffleDeck(n));
     return 0;
-}//Incompleto
+}
