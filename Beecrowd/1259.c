@@ -1,57 +1,62 @@
 #include <stdio.h>
 const int TAM = 100000;
 
-void bubbleSort (int E[], int O[], int l, int m) {
-    int a, b, aux;
-    for (a=l-1; a>=1; a--) {
-        for (b=0; b<a; b++) {
-            if (E[b]>E[b+1]) {
-                aux = E[b];
-                E[b] = E[b+1];
-                E[b+1] = aux;
-            }
-        }
-    }
+void quicksort(int arr[], int low, int high) {
+    if (low < high) {
+        int pivot = arr[high];
+        int i = (low - 1);
 
-    for (a=m-1; a>=1; a--) {
-        for (b=0; b<a; b++) {
-            if (O[b]>O[b+1]) {
-                aux = O[b];
-                O[b] = O[b+1];
-                O[b+1] = aux;
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                // Swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
             }
         }
+
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        int pi = i + 1;
+
+        quicksort(arr, low, pi - 1);
+        quicksort(arr, pi + 1, high);
     }
 }
 
 int main() {
-    int n, i=0, l=0, m=0, N, E[TAM], O[TAM], V[TAM];
+    int n, i = 0, l = 0, m = 0, N, E[TAM], O[TAM], V[TAM];
     scanf("%d", &N);
-    while(i < N){
+    while (i < N) {
         scanf("%d", &n);
         V[i] = n;
         i++;
     }
 
-    for(i = 0; i < N; i++){
-        if(V[i]%2 == 0){
+    for (i = 0; i < N; i++) {
+        if (V[i] % 2 == 0) {
             E[l] = V[i];
             l++;
-        }
-        else{
+        } else {
             O[m] = V[i];
             m++;
         }
     }
 
-    bubbleSort(E, O, l, m);
-    for(i = 0; i < l; i++){
+    quicksort(E, 0, l - 1);
+
+    quicksort(O, 0, m - 1);
+
+    for (i = 0; i < l; i++) {
         printf("%d\n", E[i]);
     }
-    for(i = m-1; i >= 0; i--){
+
+    for (i = m - 1; i >= 0; i--) {
         printf("%d\n", O[i]);
     }
-
 
     return 0;
 }
